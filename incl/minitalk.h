@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 17:23:18 by jjaroens          #+#    #+#             */
-/*   Updated: 2024/03/17 17:24:33 by jjaroens         ###   ########.fr       */
+/*   Created: 2024/03/17 16:02:07 by jjaroens          #+#    #+#             */
+/*   Updated: 2024/03/17 16:06:43 by jjaroens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "incl/minitalk.h"
-
-int	main(void)
-{
-	ft_printf("My Server PID is: %d\n", getpid());
-	return (0);
-}
+#ifndef MINITALK_H
+# define MINITALK_H
+# include <signal.h>
+# include <sys/types.h>
+# include "../ft_printf/ft_printf.h"
+#endif
