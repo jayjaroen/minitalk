@@ -6,7 +6,7 @@
 /*   By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:23:18 by jjaroens          #+#    #+#             */
-/*   Updated: 2024/03/23 15:49:29 by jjaroens         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:38:30 by jjaroens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 		signal_byte = 0;
 		signal_count = 0;
 	}
-	signal_byte |= (signum == SIGUSR2);
+	// signal_byte |= (signum == SIGUSR2);
+	if (signum == SIGUSR2)
+		signal_byte |= 1;
 	signal_count++;
 	if (signal_count == 8)
 	{
 		signal_count = 0;
 		write (1, &signal_byte, 1);
+		signal_byte = 0;
 	}
 	else
 		signal_byte <<= 1; //bit shift left by 1 position

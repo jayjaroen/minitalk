@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 18:06:42 by jjaroens          #+#    #+#             */
-/*   Updated: 2024/03/23 16:27:21 by jjaroens         ###   ########.fr       */
+/*   Created: 2024/03/23 15:52:47 by jjaroens          #+#    #+#             */
+/*   Updated: 2024/03/23 18:03:37 by jjaroens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 
 void	handle_signal(int signum)
 {
-	if (signum == SIGUSR2)
+	if (signum == SIGUSR1)
 		printf("Received the signal from the server.\n");
+	else
+		printf("hi");
 }
-
 void	send_to_server(pid_t pid, char *str)
 {
 	int		i;
@@ -51,7 +52,6 @@ void	send_to_server(pid_t pid, char *str)
 			usleep(300);
 		}
 	}
-	exit (0);
 }
 
 int	main(int argc, char **argv)

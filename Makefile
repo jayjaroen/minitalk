@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jjaroens <jjaroens@student.42bangkok.co    +#+  +:+       +#+         #
+#    By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/17 16:19:17 by jjaroens          #+#    #+#              #
-#    Updated: 2024/03/22 20:28:31 by jjaroens         ###   ########.fr        #
+#    Updated: 2024/03/23 17:52:13 by jjaroens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 SERVER = server
 CLENT = client
-SERVER_SRCS = server.c
-CLENT_SRCS = client.c
+SERVER_SRCS = server_bonus.c
+CLENT_SRCS = client_bonus.c
 FT_PRINTF = ./ft_printf/libftprintf.a
 INCLUDE = incl
 HEADER = $(INCLUDE)/minitalk.h
