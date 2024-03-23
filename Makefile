@@ -3,27 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+         #
+#    By: jjaroens <jjaroens@student.42bangkok.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/17 16:19:17 by jjaroens          #+#    #+#              #
-#    Updated: 2024/03/17 17:55:43 by jjaroens         ###   ########.fr        #
+#    Updated: 2024/03/22 20:28:31 by jjaroens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 SERVER = server
-SERVER_SRCS = server.c client.c
+CLENT = client
+SERVER_SRCS = server.c
+CLENT_SRCS = client.c
 FT_PRINTF = ./ft_printf/libftprintf.a
 INCLUDE = incl
 HEADER = $(INCLUDE)/minitalk.h
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SERVER_OBJS = $(SERVER_SRCS:.c=.o) 
+SERVER_OBJS = $(SERVER_SRCS:.c=.o)
+CLIENT_OBJS = $(CLENT_SRCS:.c=.o)
 
-all:	$(SERVER)
+all:	$(SERVER) $(CLENT)
 
 $(SERVER_OBJS): %.o: %.c $(HEADER)
-	cc $(CFLAGS) -I$(INCLUDE) -c $< -o $@ 
+	cc $(CFLAGS) -I$(INCLUDE) -c $< -o $@
+
+$(CLENT_OBJS): %.o: %.c $(HEADER)
+	cc $(CLFAGS) -I$(INCLUDE) -c $< -o $@
 
 $(FT_PRINTF):
 			make -C ./ft_printf
@@ -31,8 +37,11 @@ $(FT_PRINTF):
 $(SERVER):	$(SERVER_OBJS) $(FT_PRINTF)
 			$(CC) $(CFLAGS) -I$(INCLUDE) $(SERVER_OBJS) $(FT_PRINTF) -o $(SERVER)
 
+$(CLIENT):	$(CLIENT_OBJS) $(FT_PRINTF)
+			$(CC) $(CFLAGS) -I$(INCLUDE) $(CLENT_OBJS) $(FT_PRINTF) -o $(CLIENT)
 clean:
 	rm -f $(SERVER_OBJS)
+	rm -f $(CLIENT_OBJS)
 
 fclean: clean
 	$(MAKE) fclean -C ft_printf
