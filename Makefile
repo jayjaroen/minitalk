@@ -6,7 +6,7 @@
 #    By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/17 16:19:17 by jjaroens          #+#    #+#              #
-#    Updated: 2024/03/24 13:47:18 by jjaroens         ###   ########.fr        #
+#    Updated: 2024/03/24 13:59:43 by jjaroens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,3 +48,9 @@ fclean: clean
 	$(MAKE) fclean -C Libft
 	rm -f ./Libft/libft.a
 	rm -f minitalk
+
+norminette:
+	@norminette -R CheckForbiddenSourceHeader *.c
+	@norminette -R CheckForbiddenSourceHeader Libft/*.c
+	@norminette -R CheckDefine Libft/libft.h
+	@norminette -R CheckDefine $(INCLUDE)/*.h
