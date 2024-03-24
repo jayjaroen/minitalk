@@ -6,25 +6,16 @@
 /*   By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:06:42 by jjaroens          #+#    #+#             */
-/*   Updated: 2024/03/23 16:27:21 by jjaroens         ###   ########.fr       */
+/*   Updated: 2024/03/24 13:43:44 by jjaroens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incl/minitalk.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdio.h>
-
-/// TO DO ////
-// 1) include libft
-// 2) edit atoi, strlen, isdigit, printf
-// 3) delete the libs above
 
 void	handle_signal(int signum)
 {
 	if (signum == SIGUSR2)
-		printf("Received the signal from the server.\n");
+		ft_printf("Received the signal from the server.\n");
 }
 
 void	send_to_server(pid_t pid, char *str)
@@ -39,15 +30,9 @@ void	send_to_server(pid_t pid, char *str)
 		while (i--)
 		{
 			if (((c >> i) & 1) == 1)
-			{
 				kill(pid, SIGUSR2);
-				printf("send2\n");
-			}
 			else
-			{
 				kill(pid, SIGUSR1);
-				printf("sending1\n");
-			}
 			usleep(300);
 		}
 	}
@@ -57,25 +42,25 @@ void	send_to_server(pid_t pid, char *str)
 int	main(int argc, char **argv)
 {
 	pid_t	server_pid;
-	int	i;
+	int		i;
 
 	i = 0;
-	if (argc != 3 || !strlen(argv[2]))
+	if (argc != 3 || !ft_strlen(argv[2]))
 	{
-		printf("Wrong arguments\n");
+		ft_printf("Wrong arguments\n");
 		return (1);
 	}
 	while (argv[1][i])
 	{
-		if (!isdigit(argv[1][i]))
+		if (!ft_isdigit(argv[1][i]))
 		{
-			printf("Wrong format. Server PID is not digit\n");
+			ft_printf("Wrong format. Server PID is not digit\n");
 			return (1);
 		}
 		i++;
 	}
-	server_pid = atoi(argv[1]);
-	send_to_server(server_pid, argv[2]);	
+	server_pid = ft_atoi(argv[1]);
+	send_to_server(server_pid, argv[2]);
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while (1)
