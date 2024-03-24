@@ -6,7 +6,7 @@
 /*   By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:23:18 by jjaroens          #+#    #+#             */
-/*   Updated: 2024/03/24 13:01:08 by jjaroens         ###   ########.fr       */
+/*   Updated: 2024/03/24 14:58:05 by jjaroens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 	if (signum == SIGUSR2)
 		signal_byte |= 1;
 	signal_count++;
+	kill(client, SIGUSR1);
 	if (signal_count == 8)
 	{
 		signal_count = 0;

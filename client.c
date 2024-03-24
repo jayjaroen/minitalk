@@ -6,16 +6,18 @@
 /*   By: jjaroens <jjaroens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:06:42 by jjaroens          #+#    #+#             */
-/*   Updated: 2024/03/24 13:43:44 by jjaroens         ###   ########.fr       */
+/*   Updated: 2024/03/24 15:26:38 by jjaroens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incl/minitalk.h"
 
+int	g_signal_received;
+
 void	handle_signal(int signum)
 {
-	if (signum == SIGUSR2)
-		ft_printf("Received the signal from the server.\n");
+	(void)signum;
+	g_signal_received = 1;
 }
 
 void	send_to_server(pid_t pid, char *str)
@@ -29,11 +31,13 @@ void	send_to_server(pid_t pid, char *str)
 		c = *str++;
 		while (i--)
 		{
+			g_signal_received = 0;
 			if (((c >> i) & 1) == 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(300);
+			while (!g_signal_received)
+				pause();
 		}
 	}
 	exit (0);
@@ -45,25 +49,25 @@ int	main(int argc, char **argv)
 	int		i;
 
 	i = 0;
-	if (argc != 3 || !ft_strlen(argv[2]))
+	if (argc != 3)
 	{
-		ft_printf("Wrong arguments\n");
+		ft_putendl_fd("Wrong arguments\n", 2);
 		return (1);
 	}
 	while (argv[1][i])
 	{
 		if (!ft_isdigit(argv[1][i]))
 		{
-			ft_printf("Wrong format. Server PID is not digit\n");
+			ft_putendl_fd("Wrong format. Server PID is not digit\n", 2);
 			return (1);
 		}
 		i++;
 	}
 	server_pid = ft_atoi(argv[1]);
-	send_to_server(server_pid, argv[2]);
 	signal(SIGUSR1, handle_signal);
-	signal(SIGUSR2, handle_signal);
+	send_to_server(server_pid, argv[2]);
+	g_signal_received = 0;
 	while (1)
-		usleep(300);
+		pause();
 	return (0);
 }
